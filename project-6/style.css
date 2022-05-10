@@ -24,6 +24,23 @@ body {
 	gap: 1rem;
 }
 
+.input-group {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	position: relative;
+	/* overflow: hidden; */
+}
+
+.input-icon {
+	position: absolute;
+	padding: 0.45rem;
+	background-color: #ddd;
+	color: #424242;
+	border-top-left-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+}
+
 input[type='text'],
 input[type='text']:disabled,
 .copy-btn {
@@ -35,7 +52,16 @@ input[type='text']:disabled,
 	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.change-btn { 
+.output {
+	margin-left: 1rem;
+}
+
+.output:focus {
+	outline: none;
+	border: none;
+}
+
+.change-btn {
 	padding: 1rem 3rem;
 	outline: none;
 	background-color: #000;
@@ -62,4 +88,48 @@ h1 {
 
 .copy-btn {
 	cursor: pointer;
+}
+
+.toast-message {
+	position: fixed;
+	z-index: 999;
+	top: 2rem;
+	right: 2rem;
+	background-color: rgb(19, 201, 110);
+	color: #000;
+	border: 1px solid #fff;
+	border-radius: 0.25rem;
+	padding: 1rem 2rem;
+	cursor: pointer;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.toast-message-slide-in {
+	animation: toast-animation-in 0.5s ease-in;
+}
+
+.toast-message-slide-out {
+	animation: toast-animation-out 0.5s ease-in;
+}
+
+@keyframes toast-animation-in {
+	from {
+		transform: translateX(200px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes toast-animation-out {
+	from {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+	to {
+		transform: translateX(200px);
+		opacity: 0;
+	}
 }
