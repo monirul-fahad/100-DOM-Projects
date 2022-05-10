@@ -1,4 +1,3 @@
-
 let div = null;
 
 window.onload = () => {
