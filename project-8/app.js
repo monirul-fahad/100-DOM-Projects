@@ -4,13 +4,13 @@ window.onload = () => {
 	main();
 };
 
-
 function main() {
 	const root = document.getElementById('root');
 	const output = document.getElementById('output');
 	const output2 = document.getElementById('output2');
 	const changeBtn = document.getElementById('change-btn');
 	const copyBtn = document.getElementById('copy-btn');
+	const copyBtn2 = document.getElementById('copy-btn2');
 
 	changeBtn.addEventListener('click', function () {
 		const color = generateColorDecimal();
@@ -34,18 +34,32 @@ function main() {
 		}
 	});
 
+	copyBtn2.addEventListener('click', function () {
+		navigator.clipboard.writeText(`#${output2.value}`);
+		if (div !== null) {
+			div.remove();
+			div = null;
+		}
+		if (isValidHex(output.value)) {
+			generateToastMessage(`#${output2.value} copied`);
+		} else {
+			alert('Invalid Color Code');
+		}
+	});
+
 	output.addEventListener('keyup', function (e) {
 		const color = e.target.value;
 		if (color) {
 			output.value = color.toUpperCase();
 			if (isValidHex(color)) {
 				root.style.backgroundColor = `#${color}`;
+				output2.value = hexToRgb(color);
 			}
 		}
 	});
 }
 
-
+// function 1 - generate three random decimal number for red, green and blue
 function generateColorDecimal() {
 	const red = Math.floor(Math.random() * 255);
 	const green = Math.floor(Math.random() * 255);
@@ -58,6 +72,7 @@ function generateColorDecimal() {
 	};
 }
 
+// function 2 - generate hex color code
 function generateHexColor({ red, green, blue }) {
 	const getTwoCode = (value) => {
 		const hex = value.toString(16);
@@ -69,9 +84,24 @@ function generateHexColor({ red, green, blue }) {
 	)}`.toUpperCase();
 }
 
+// function 3 - generate rgba color code
 function generateRGBColor({ red, green, blue }) {
 	return `rgb(${red}, ${green}, ${blue})`;
 }
+
+/**
+ 
+  @param {string} hex
+ */
+function hexToRgb(hex) {
+	const red = parseInt(hex.slice(0, 2), 16);
+	const green = parseInt(hex.slice(2, 4), 16);
+	const blue = parseInt(hex.slice(4), 16);
+
+	return `rgb(${red}, ${green}, ${blue})`;
+}
+
+console.log(hexToRgb('FFFFFF'));
 
 function generateToastMessage(msg) {
 	div = document.createElement('div');
