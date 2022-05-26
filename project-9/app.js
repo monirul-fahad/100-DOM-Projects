@@ -43,12 +43,17 @@ function main() {
 	);
 
 	copyToClipboardBtn.addEventListener('click', handleCopyToClipboard);
+	presentColorParent.addEventListener('click', function(event) {
+		if (event.target.className === 'color-box') {
+			alert(child.getAttribute())
+		}
+	})
 }
 
 // event handlers
 function handleGenerateRandomColorBtn() {
 	const color = generateColorDecimal();
-	updateColorCodeToDom(color);
+	updateColorCodeToDom(color); 
 }
 
 function handleColorModeHexInp(e) {
