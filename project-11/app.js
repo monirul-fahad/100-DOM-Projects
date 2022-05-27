@@ -31,6 +31,7 @@ const defaultPresetColors = [
 	'#ccff90',
 	'#ffcc80',
 ];
+const customColors = [];
 // const copySound = new Audio('./copy-sound.wav');
 
 // onload handler
@@ -55,7 +56,9 @@ function main() {
 	const colorSliderGreen = document.getElementById('color-slider-green');
 	const colorSliderBlue = document.getElementById('color-slider-blue');
 	const copyToClipboardBtn = document.getElementById('copy-to-clipboard');
+	const saveToCustomBtn = document.getElementById('save-to-custom');
 	const presetColorsParent = document.getElementById('preset-colors');
+	const customColorsParent = document.getElementById('custom-colors');
 
 	// event listeners
 	generateRandomColorBtn.addEventListener(
@@ -77,6 +80,9 @@ function main() {
 	);
 	copyToClipboardBtn.addEventListener('click', handleCopyToClipboard);
 	presetColorsParent.addEventListener('click', handlePresetColorsParent);
+	saveToCustomBtn.addEventListener('click', function () {
+		displayColorBoxes(customColorsParent, colors)
+	})	
 }
 
 // event handlers
