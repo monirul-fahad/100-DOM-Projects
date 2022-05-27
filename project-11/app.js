@@ -32,7 +32,7 @@ const defaultPresetColors = [
 	'#ffcc80',
 ];
 const customColors = [];
-// const copySound = new Audio('./copy-sound.wav');
+const copySound = new Audio('./copy-sound.wav');
 
 // onload handler
 window.onload = () => {
@@ -80,9 +80,10 @@ function main() {
 	);
 	copyToClipboardBtn.addEventListener('click', handleCopyToClipboard);
 	presetColorsParent.addEventListener('click', handlePresetColorsParent);
-	saveToCustomBtn.addEventListener('click', function () {
-		displayColorBoxes(customColorsParent, colors)
-	})	
+	saveToCustomBtn.addEventListener(
+		'click',
+		handleSaveToCustomBtn(customColorsParent, colorModeHexInp)
+	);
 }
 
 // event handlers
@@ -148,9 +149,17 @@ function handlePresetColorsParent(event) {
 	const child = event.target;
 	if (child.className === 'color-box') {
 		navigator.clipboard.writeText(child.getAttribute('data-color'));
-		// copySound.volume = 0.2;
-		// copySound.play();
+		copySound.volume = 0.2;
+		copySound.play();
 	}
+}
+
+function handleSaveToCustomBtn(customColorsParent, inputHex) {
+	return function () {
+		customColors.push(`#${inputHex.value}`);
+		removeChildren(customColorsParent);
+		displayColorBoxes(customColorsParent, customColors);
+	};
 }
 
 // DOM functions
@@ -237,6 +246,18 @@ function displayColorBoxes(parent, colors) {
 		const colorBox = generateColorBox(color);
 		parent.appendChild(colorBox);
 	});
+}
+
+/**
+ * remove all children from parent
+ * @param {object} parent
+ */
+function removeChildren(parent) {
+	let child = parent.lastElementChild;
+	while (child) {
+		parent.removeChild(child);
+		child = parent.lastElementChild;
+	}
 }
 
 // Utils
